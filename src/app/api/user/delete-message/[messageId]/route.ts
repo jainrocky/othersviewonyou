@@ -5,7 +5,7 @@ import { error } from "console";
 import { TokenExpiredError } from "jsonwebtoken";
 import { NextRequest } from "next/server";
 
-export async function DELETE(request: NextRequest, {params}:{params: {messageId:string}}){
+export async function DELETE(request: NextRequest, {params}:{params: Promise<{messageId:string}>}){
     try{
         // const accessToken=request.cookies.get(ACCESS_TOKEN)?.value
         const accessToken = request.headers.get('authorization')?.split('Bearer ')[1]
