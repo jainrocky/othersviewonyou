@@ -1,6 +1,7 @@
 
 import mongoose, { Schema, Document } from "mongoose";
 import { Message, MessageSchema } from "./Message";
+import { boolean } from "zod";
 
 export interface User extends Document{
     username:string;
@@ -8,8 +9,9 @@ export interface User extends Document{
     password:string;
     verificationCode:string;
     codeExpiry:Date;
-    acceptingMessage:boolean;
-    message: Message[]
+    isAcceptingMessage:boolean;
+    messages: Message[];
+    isVerified:boolean;
     createdAt:Date;
 }
 
@@ -38,16 +40,23 @@ export const UserSchema: Schema<User> = new Schema({
         type: Date,
         required: [true, 'Code expiry is required.'],
     },
-    acceptingMessage: {
+    isAcceptingMessage: {
         type: Boolean,
-        required: [true, 'Accepting message is required.'],
+        // required: [true, 'Accepting message is required.'],
+        default: true,
     },
-    message: [MessageSchema],
+    messages: [MessageSchema],
+
+    isVerified: {
+        type: Boolean,
+        // required: [true, 'isVerified is required.'],
+        default: false,
+    },
     createdAt: {
         type: Date,
-        required: [true, 'Created at is required.'],
+        // required: [true, 'Created at is required.'],
         default: Date.now,
-    }
+    },
 });
 
 const UserModel = (mongoose.models.User as mongoose.Model<User>) || (mongoose.model<User>("User", UserSchema))

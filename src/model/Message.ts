@@ -13,7 +13,7 @@ export const MessageSchema: Schema<Message> = new Schema({
     },
     createdAt: {
         type: Date,
-        required: [true, 'Created at is required.'],
+        // required: [true, 'Created at is required.'],
         default: Date.now,
     }
 });

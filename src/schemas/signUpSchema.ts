@@ -18,4 +18,5 @@ export const signUpSchema=z.object({
     username: usernameValidation,
     email: emalValidation,
     password: passwordValidation,
+    redirectURL: z.string()
 });
