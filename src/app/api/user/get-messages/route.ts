@@ -5,6 +5,8 @@ import ValidUserApiResponse from "@/types/ValidUserApiResponse"
 import { TokenExpiredError } from "jsonwebtoken"
 import { NextRequest } from "next/server"
 
+export const maxDuration = 60
+
 
 export async function GET(request: NextRequest) {
     try {

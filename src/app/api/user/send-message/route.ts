@@ -6,6 +6,9 @@ import { messageSchema } from "@/schemas/messageSchema";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
+export const maxDuration = 60
+
+
 //This api do not required authentication, since sender will be anonymous
 export async function POST(request: NextRequest) {
     try {

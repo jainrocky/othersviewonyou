@@ -5,6 +5,10 @@ import { usernameValidation } from "@/schemas/signUpSchema";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
+export const maxDuration = 60
+
+
+
 // const UserNameQuerySchema=z.object({
 //     username: usernameValidation
 // })

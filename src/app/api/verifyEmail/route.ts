@@ -3,6 +3,9 @@ import { createResponse } from "@/lib/helpers";
 import UserModel from "@/model/User";
 import { NextRequest } from "next/server";
 
+export const maxDuration = 60
+
+
 export async function POST(request: NextRequest) {
     try {
         const { username, verificationCode } = await request.json()

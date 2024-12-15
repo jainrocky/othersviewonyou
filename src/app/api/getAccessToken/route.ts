@@ -8,6 +8,9 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import { z } from "zod";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/lib/constants";
 
+export const maxDuration = 60
+
+
 export async function POST(request: NextRequest) {
     try {
         //TODO: check if refresh access token is already available and not expired

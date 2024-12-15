@@ -44,10 +44,10 @@ export default function SignUpPage() {
                 setCheckingUsername(true)
                 try {
                     const response = await axios.get<APIResponse>(`/api/check-username?username=${username}`)
-                    console.log('checkIsUsernameUnique|try: ', response)
+                    // console.log('checkIsUsernameUnique|try: ', response)
                     setUsernameMessage(response.data.message)
                 } catch (error) {
-                    console.error('checkIsUsernameUnique|catch:', error)
+                    // console.error('checkIsUsernameUnique|catch:', error)
                     const axiosError = error as AxiosError<APIResponse>
                     // if (axiosError.response?.data.data) {
                     // setUsernameMessage(axiosError.response?.data.data[0].message ?? '')
@@ -66,7 +66,7 @@ export default function SignUpPage() {
     const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
         setSubmittingForm(true)
         try {
-            console.log('createaccount onsubmit data: ',data)
+            // console.log('createaccount onsubmit data: ',data)
             const response = await axios.post<APIResponse>(`/api/createAccount`, {
                 username:data.username,
                 email:data.email,

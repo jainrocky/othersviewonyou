@@ -9,6 +9,9 @@ import { string, z } from "zod";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/lib/constants";
 import mongoose from "mongoose";
 
+export const maxDuration = 60
+
+
 export async function POST(request: NextRequest) {
     try {
         const refreshToken = request.headers.get('authorization')?.split('Bearer ')[1]

@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt'
 import { signUpSchema } from "@/schemas/signUpSchema";
 import * as z from 'zod'
 
+export const maxDuration = 60
+
 
 export async function POST(request: NextRequest) {
     try {

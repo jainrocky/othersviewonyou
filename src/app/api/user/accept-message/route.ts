@@ -8,6 +8,8 @@ import jwt, { JwtPayload, TokenExpiredError } from "jsonwebtoken";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
+export const maxDuration = 60
+
 
 export async function POST(request: NextRequest) {
     try {

@@ -5,6 +5,9 @@ import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
+export const maxDuration = 60
+
+
 export async function POST(request: NextRequest) {
     try {
         const data = await request.json()
