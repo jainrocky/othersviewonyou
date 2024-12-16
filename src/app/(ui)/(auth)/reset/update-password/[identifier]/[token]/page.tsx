@@ -7,7 +7,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -34,7 +34,7 @@ export default function UpdatePassword() {
         try {
             const respone = await axios.post<APIResponse>('/api/update-password', {
                 password: data.password,
-                identifier: identifier
+                identifier: decodeURIComponent(identifier)
             })
             if (respone.data.success) {
                 toast({

@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import { createResponse, sendResetPasswordEmail } from "@/lib/helpers";
+import { createResponse, generateJWTToken, sendResetPasswordEmail } from "@/lib/helpers";
 import UserModel from "@/model/User";
 import { resetPasswordSchema } from "@/schemas/resetPasswordSchema";
 import { NextRequest } from "next/server";
@@ -25,12 +25,23 @@ export async function POST(request: NextRequest) {
                 { isVerified: true }
             ]
         })
-        if(!validUser){
+        if (!validUser) {
             return createResponse(false, 'User is not found.', 404)
         }
-        const emailResponse = await sendResetPasswordEmail(validUser.username,validUser.email ,redirectURL)
 
-        if(!emailResponse.success){
+        const token=generateJWTToken({
+            _id:validUser._id,
+            username:validUser.username,
+            email:validUser.email
+        },'reset_password')
+
+        const emailResponse = await sendResetPasswordEmail(
+            validUser.username,
+            validUser.email,
+            `${redirectURL}/${token}`
+        )
+
+        if (!emailResponse.success) {
             return createResponse(false, emailResponse.message, 400)
         }
         return createResponse(true, 'Reset password link is sent to the user email.', 200)

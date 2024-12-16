@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
         const data = await request.json()
         const { identifier, password } = updatePasswordSchema.parse(data)
         
+        console.log('update-password: query: ', identifier, password)
         await dbConnect()
         const validUser = await UserModel.findOne({
             $and: [
