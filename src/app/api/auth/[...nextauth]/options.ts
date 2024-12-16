@@ -5,7 +5,6 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/lib/constants";
 import { AxiosResponse } from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { jwtDecode } from "jwt-decode";
 import axios from "@/lib/axios";
 import { request } from "http";
 // import axiosInstance from "@/lib/axios";

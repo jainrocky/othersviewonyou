@@ -82,12 +82,19 @@ export async function sendResetPasswordEmail(
     }
 }
 
-export function generateJWTToken(data: {}, type: 'access' | 'refresh') {
+export function generateJWTToken(data: {}, type: 'access' | 'refresh' | 'reset_password') {
     if (type === 'access') {
         return jwt.sign(
             data,
             process.env.ACCESS_TOKEN_SECRET || '',
             { expiresIn: '5m' }
+        )
+    }
+    if(type==='reset_password'){
+        return jwt.sign(
+            data,
+            process.env.ACCESS_TOKEN_SECRET || '',
+            { expiresIn: '10m' }
         )
     }
     return jwt.sign(

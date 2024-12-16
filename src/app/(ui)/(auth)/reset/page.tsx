@@ -38,7 +38,7 @@ export default function ResetPassword() {
             const response = await axios.post<APIResponse>('/api/reset-password', {
                 identifier: data.identifier,
                 // redirectURL: `${process.env.NEXT_PUBLIC_BASE_URL}/reset/${urlToken}`,
-                redirectURL: `${process.env.NEXT_PUBLIC_BASE_URL}/reset/${data.identifier}`,
+                redirectURL: `${process.env.NEXT_PUBLIC_BASE_URL}/reset/update-password/${data.identifier}`,
             })
             if (response.data.success) {
                 toast({
@@ -60,7 +60,7 @@ export default function ResetPassword() {
                 })
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             const axiosError = error as AxiosError<APIResponse>
             toast({
                 title: "Failed to sent reset link",
