@@ -12,11 +12,18 @@ export async function middleware(request: NextRequest) {
     const url = request.nextUrl;
     if(url.pathname.startsWith('/reset/update-password')){
         try{
-            const token = url.pathname.replace(/^\/reset\/update-password\/[^\/]+\/([^\/]+)$/, '$1');
-            // console.log('middleware: reset: token: ', token)
+            const token = url.pathname.replace(/^\/reset\/update-password\/[^\/]+\/([^\/]+)$/, '$1')
+            const identifier = decodeURIComponent(url.pathname.replace(/^\/reset\/update-password\/([^\/]+)\/.+$/, '$1'))
+            // console.log('middleware: reset: identifier: ', identifier)
             const decodeToken:any = await jose.jwtVerify(token, jwtConfig.secret)
+
+            if(decodeToken.payload.username === identifier || decodeToken.payload.email===identifier){
+                return NextResponse.next()
+            }
+            else{
+                throw new Error('identifier is not matching with token username or email')
+            }
             // console.log('middleware: reset: decodetoken: ', decodeToken.payload.username)
-            return NextResponse.next()
         }catch(error){
             console.log('middleware:reset:error', error)
             return NextResponse.redirect(new URL(`/not-found`, request.url));
