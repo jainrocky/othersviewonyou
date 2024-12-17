@@ -2,7 +2,7 @@
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/lib/constants";
 // import APIResponse from "@/types/APIResponse";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "@/lib/axios";
@@ -32,6 +32,7 @@ export const authOptions: NextAuthOptions = {
                         identifier: credentials?.identifier,
                         password: credentials?.password
                     })
+                    // console.log('options.ts: response: ',response)
                     const {success, message, data}=await response.data
                     if(!success){
                         throw new Error(message)
@@ -43,7 +44,10 @@ export const authOptions: NextAuthOptions = {
                         refreshToken
                     }
                 } catch (error: any) {
-                    throw new Error(error)
+                    if(error instanceof AxiosError && error.status===404){
+                        throw new Error('Incorrect username or password')
+                    }
+                    throw new Error('Unable to login, please try again later.')
                 }
             }
         })

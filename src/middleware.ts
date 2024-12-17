@@ -10,7 +10,24 @@ const jwtConfig = {
 export async function middleware(request: NextRequest) {
     const token = await getToken({ req: request });
     const url = request.nextUrl;
-    if(url.pathname.startsWith('/reset/update-password')){
+
+    if (
+        token &&
+        (url.pathname.startsWith('/sign-in') ||
+            url.pathname.startsWith('/sign-up') ||
+            url.pathname.startsWith('/verify') ||
+            url.pathname.startsWith('/reset') 
+            || url.pathname === '/')
+        
+    ) {
+        return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
+
+    if (!token && url.pathname.startsWith('/dashboard')) {
+        return NextResponse.redirect(new URL('/sign-in', request.url));
+    }
+
+    if(!token && url.pathname.startsWith('/reset/update-password')){
         try{
             const token = url.pathname.replace(/^\/reset\/update-password\/[^\/]+\/([^\/]+)$/, '$1')
             const identifier = decodeURIComponent(url.pathname.replace(/^\/reset\/update-password\/([^\/]+)\/.+$/, '$1'))
@@ -28,26 +45,8 @@ export async function middleware(request: NextRequest) {
             console.log('middleware:reset:error', error)
             return NextResponse.redirect(new URL(`/not-found`, request.url));
         }
-        
-        
         // JWTExpired
     }
 
-
-    if (
-        token &&
-        (url.pathname.startsWith('/sign-in') ||
-            url.pathname.startsWith('/sign-up') ||
-            url.pathname.startsWith('/verify') ||
-            url.pathname.startsWith('/reset')
-            // url.pathname === '/'
-        )
-    ) {
-        return NextResponse.redirect(new URL('/dashboard', request.url));
-    }
-
-    if (!token && url.pathname.startsWith('/dashboard')) {
-        return NextResponse.redirect(new URL('/sign-in', request.url));
-    }
     return NextResponse.next();
 }

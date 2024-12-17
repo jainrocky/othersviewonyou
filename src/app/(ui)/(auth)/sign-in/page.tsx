@@ -46,7 +46,7 @@ export default function SignInPage() {
                     });
                 } else {
                     toast({
-                        title: 'Error',
+                        title: 'Login Failed',
                         description: result.error,
                         variant: 'destructive',
                     });
@@ -58,12 +58,13 @@ export default function SignInPage() {
             }
         } catch (error) {
             toast({
-                title: 'Error',
-                description: 'Error in SignIn, please try after sometime',
+                title: 'Login Failed',
+                description: 'Unable to login, please try after sometime.',
                 variant: 'destructive',
             });
         }
         finally {
+            signInForm.reset()
             setSubmittingForm(false)
         }
     }
