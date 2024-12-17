@@ -33,7 +33,7 @@ export default function CodeVerificationPage() {
                 username: params.username,
                 verificationCode: data.verificationCode
             })
-            console.log('onSubmit: ', response)
+            // console.log('onSubmit: ', response)
             if (!response.data.success) {
                 toast({
                     title: "Failed",

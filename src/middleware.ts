@@ -3,6 +3,9 @@ import { getToken } from 'next-auth/jwt'
 // import jwt, { JwtPayload } from 'jsonwebtoken'
 import * as jose from 'jose'
 
+
+export const maxDuration = 60
+
 const jwtConfig = {
     secret: new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET),
   }

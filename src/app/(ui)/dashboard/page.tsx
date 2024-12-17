@@ -21,7 +21,7 @@ import { z } from "zod";
 
 export default function DashBoardPage() {
     const { data: session } = useSession()
-    console.log('session user data: ', session?.user)
+    // console.log('session user data: ', session?.user)
     const axiosAuth = useAxiosAuth()
     const { toast } = useToast()
     const [messageList, setMessageList] = useState<Message[]>([])
@@ -38,7 +38,7 @@ export default function DashBoardPage() {
         setIsMessagesLoading(true)
         try {
             const response = await axiosAuth.get("/api/user/get-messages")
-            console.log('fetchMessagesList:  response', response)
+            // // console.log('fetchMessagesList:  response', response)
             if (response.data.success) {
                 const mList = response.data.data.messages as Message[]
                 setMessageList(mList || [])
@@ -71,7 +71,7 @@ export default function DashBoardPage() {
         setIsSwitchChanging(true)
         try {
             const response = await axiosAuth.get<APIResponse>("/api/user/accept-message")
-            console.log('fetchAcceptMessageStatus:  response', response)
+            // // console.log('fetchAcceptMessageStatus:  response', response)
             if (response.data.success) {
                 setValue('isAcceptingMessage', response.data.data.isAcceptingMessage)
             } else {
